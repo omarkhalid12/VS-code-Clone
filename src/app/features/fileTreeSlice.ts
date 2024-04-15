@@ -2,19 +2,19 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IFile } from "../../interfaces";
 
 interface IClickedFiles {
+  activeTabId: string | null
   filename: string;
   fileContent: string | undefined
 }
 interface IInitialState {
-  activeTabId: string | null
   openedFile: IFile[];
   clickedFile: IClickedFiles;
 }
 
 const initialState: IInitialState = {
-  activeTabId: null,
   openedFile: [],
   clickedFile: {
+    activeTabId: null,
     filename: "",
     fileContent: ""
   }
@@ -30,10 +30,7 @@ const fileTreeSlice = createSlice({
     setClickedFileAction : (state, action: PayloadAction<IClickedFiles>) => {
       state.clickedFile = action.payload
     },
-    setActiveTabIdAction : (state, action: PayloadAction<string>) => {
-      state.activeTabId = action.payload
-    }
   }
 })
-export const {setOpenedFileAction, setClickedFileAction, setActiveTabIdAction} = fileTreeSlice.actions
+export const {setOpenedFileAction, setClickedFileAction} = fileTreeSlice.actions
 export default fileTreeSlice.reducer

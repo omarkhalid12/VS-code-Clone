@@ -4,7 +4,7 @@ import BottomArrowIcon from "./SVG/Bottom"
 import RightArrowIcon from "./SVG/Right"
 import RenderFileIcons from "./RenderFileIcons"
 import { useDispatch, useSelector } from "react-redux"
-import { setActiveTabIdAction, setOpenedFileAction } from "../app/features/fileTreeSlice"
+import { setClickedFileAction, setOpenedFileAction } from "../app/features/fileTreeSlice"
 import { RootState } from "../app/store"
 import { isFileObjectExist } from "../utils/functions"
 
@@ -12,7 +12,7 @@ interface IProps {
   fileTree: IFile
 }
 const RecursiveComponent = ({ fileTree } : IProps) => {
-  const {id, name, isFolder, children} = fileTree;
+  const {id, name, isFolder, children, content} = fileTree;
   const dispatch = useDispatch();
   const {openedFile} = useSelector((state: RootState) => state.tree);
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -21,9 +21,10 @@ const RecursiveComponent = ({ fileTree } : IProps) => {
   const Toggle = ()=> setIsOpen(prev => !prev);
   const onFileClicked = ()=> {
     const exists = isFileObjectExist(openedFile, id);
+    dispatch(setClickedFileAction({filename: name, fileContent: content,
+      activeTabId: id}));
     if(exists) return ;
     dispatch(setOpenedFileAction([...openedFile, fileTree]));
-    dispatch(setActiveTabIdAction(id))
   }
   
   return (
