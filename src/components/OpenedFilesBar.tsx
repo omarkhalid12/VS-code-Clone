@@ -4,7 +4,7 @@ import OpenedFilesBarTab from "./OpenedFilesBarTab";
 
 
 const OpenedFilesBar = () => {
-  const {openedFile} = useSelector((state: RootState) => state.tree);
+  const {openedFile, clickedFile} = useSelector((state: RootState) => state.tree);
   return (
     <div>
       <div className="flex items-center border-b-[1px] border-[#ffffff1f]">
@@ -12,6 +12,7 @@ const OpenedFilesBar = () => {
           openedFile.map((file)=> <OpenedFilesBarTab key={file.id} file={file} />)
         }
       </div>
+      {clickedFile.fileContent}
     </div>
   )
 }
