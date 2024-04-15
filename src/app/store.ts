@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import fileTreeSlice from './features/fileTreeSlice'
 // ...
 
 export const store = configureStore({
   reducer: {
-    
+    tree: fileTreeSlice
   },
 })
 
