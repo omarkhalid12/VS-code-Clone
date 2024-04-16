@@ -41,7 +41,7 @@ const OpenedFilesBarTab = ({ file } : IProps) => {
         <span className="flex items-center justify-center p-1 mx-2 duration-300 rounded-md cursor-pointer w-fit">
           <li>{file.name}</li>
         </span>
-        <span className="flex items-center justify-center p-1 mr-2 duration-300 rounded-md cursor-pointer w-fit"
+        <span className="flex cursor-pointer hover:bg-[#64646473] duration-300 justify-center items-center w-fit mr-2 p-1 rounded-md"
         onClick={e => {
           e.stopPropagation();
           onRemove(file.id)
