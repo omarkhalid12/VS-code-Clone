@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react"
+import { useDispatch } from "react-redux"
+import { setOpenedFileAction } from "../../app/features/fileTreeSlice"
 
 interface IProps {
   setShowMenu: (val: boolean)=> void,
@@ -8,7 +10,13 @@ interface IProps {
   }
 }
 const ContextMenu = ({ positions: {x, y}, setShowMenu }: IProps) => {
+  const dispatch = useDispatch()
   const menuRef = useRef<HTMLDivElement>(null);
+
+  //** Handlers ..
+  const closeAll = () => {
+    dispatch(setOpenedFileAction([]))
+  }
   
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,7 +36,7 @@ const ContextMenu = ({ positions: {x, y}, setShowMenu }: IProps) => {
         style={{position: "absolute",
         left: x , top: y}}
       >
-        <li>Close all</li>
+        <li onClick={closeAll}>Close all</li>
         <li>Close</li>
       </ul>
     </div>
