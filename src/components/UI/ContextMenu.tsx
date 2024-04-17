@@ -11,33 +11,33 @@ interface IProps {
   }
 }
 const ContextMenu = ({ positions: {x, y}, setShowMenu }: IProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const menuRef = useRef<HTMLDivElement>(null);
+  const { openedFile, tabIdToRemove } = useSelector((state: RootState) => state.tree);
 
-  const { openedFile, tabIdToRemove } = useSelector((state: RootState)=> state.tree)
-  
-  //** Handlers ..
+  // ** Handlers
+  const onCloseAll = () => {
+    dispatch(setOpenedFileAction([]));
+    setShowMenu(false);
+  };
   const onClose = () => {
     const filtered = openedFile.filter(file => file.id !== tabIdToRemove);
-    dispatch(setOpenedFileAction(filtered))
-    setShowMenu(false)
-  }
-  const onCloseAll = () => {
-    dispatch(setOpenedFileAction([]))
-    setShowMenu(false)
-  }
-  
+    dispatch(setOpenedFileAction(filtered));
+    setShowMenu(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if(menuRef.current && menuRef.current.contains(event?.target as Node)) {
-        setShowMenu(false)
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
       }
-    }
-    window.addEventListener("click", handleClickOutside)
+    };
+    window.addEventListener("click", handleClickOutside);
+
     return () => {
-      window.removeEventListener("click", handleClickOutside)
-    }
-  }, [setShowMenu])
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [setShowMenu]);
   
   return (
     <div ref={menuRef}>
