@@ -7,11 +7,12 @@ import ContextMenu from "./UI/ContextMenu";
 
 const OpenedFilesBar = () => {
   const {openedFile} = useSelector((state: RootState) => state.tree);
-  const [menuPosition, setMenuPosition] = useState<{x: number, y: number}>({x: 0, y: 0})
   const [showMenu, setShowMenu] = useState(false)
+  const [menuPosition, setMenuPosition] = useState<{x: number, y: number}>({x: 0, y: 0})
   return (
-    <div className="w-fit">
-      <div className="flex items-center border-b-[1px] border-[#ffffff1f]" 
+    <div className="w-full">
+      <div 
+      className="flex items-center border-b-[1px] border-[#ffffff1f]" 
       onContextMenu={(e) => {
         e.preventDefault()
         setMenuPosition({x: e.clientX, y: e.clientY})
@@ -19,7 +20,7 @@ const OpenedFilesBar = () => {
       }}
       >
         {
-          openedFile.map((file)=> <OpenedFilesBarTab key={file.id} file={file} />)
+          openedFile.map(file => (<OpenedFilesBarTab key={file.id} file={file} />))
         }
       </div>
       { showMenu && <ContextMenu positions={menuPosition} setShowMenu={setShowMenu}/> }
