@@ -37,8 +37,8 @@ const OpenedFilesBarTab = ({ file }: IProps) => {
 
   return (
     <div
-      className={`max-w-screen-md flex items-center p-2 border-t-2 ${
-        file.id === activeTabId ? "border-[#cf6ccf]" : "border-transparent"
+      className={`max-w-screen-md flex items-center p-2 border-x-[2px] border-t-2 ${
+        file.id === activeTabId ? "border-[#64646473]" : "border-transparent"
       }`}
       onClick={onClick}
       onContextMenu={e => {
